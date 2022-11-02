@@ -13,7 +13,7 @@ RSpec.describe ShoppingCart do
     end
 
     it 'updates the shopping cart' do
-      expect(cart.items_array).to include(first_item)
+      expect(cart.item_list).to include(first_item)
     end
 
     context 'multiple items' do
@@ -24,7 +24,30 @@ RSpec.describe ShoppingCart do
       end
 
       it 'updates shopping cart' do
-        expect(cart.items_array).to include(first_item, second_item)
+        expect(cart.item_list).to include(first_item, second_item)
+      end
+    end
+  end
+
+  context 'calculating total' do
+    cart ||= ShoppingCart.new
+    banana = ShopItem.new(product_code: "1B", name: "Banana", price: 1.50)
+    pear = ShopItem.new(product_code: "2P", name: "Pear", price: 1.00)
+    total_cost = (banana.price + pear.price)
+
+    it 'calculates the correct total for items' do
+      cart.scan(banana)
+      cart.scan(pear)
+
+      expect(cart.calculate_cost).to eq(total_cost)
+    end
+
+    context 'when the cart is empty' do
+      empty_cart ||= ShoppingCart.new
+      empty_cart_message = 'Your cart is empty'
+
+      it 'returns empty string' do
+        expect(empty_cart.calculate_cost).to eq(empty_cart_message)
       end
     end
   end

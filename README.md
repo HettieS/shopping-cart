@@ -56,4 +56,8 @@ As a shop keeper, I want to be able to scan an item so that I can record the ite
 
 As a shop keeper, I want to be able to scan more than one item so that I can record the sale of multiple items successfully.
 
+As a shop keeper, I want to see a total amount so that I can charge the customer correctly.
+
+
+
 
