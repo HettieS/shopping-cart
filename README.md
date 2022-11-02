@@ -43,11 +43,39 @@ Please don’t spend more than an hour or two on this. An incomplete solution is
 shopping-cart (main) ✔ irb
 ```
 4. Require the following files:
+```
+require './lib/shopping_cart'
+require './lib/shop_item'
+```
 
-3. To initialise some items that you'd like to buy, you can run the following:
+3. Initialise your cart
+```
+cart = ShoppingCart.new
+```
 
+4. Initialise some items you'd like to buy, such as:
 
+```
+fruit_tea = ShopItem.new(product_code: "FR1", name: "Fruit tea", price: 3.11)
+```
 
+5. You can scan items into your cart:
+
+```
+cart.scan(fruit_tea)
+```
+
+6. You can calculate the cost of your items:
+
+```
+cart.calculate_cost
+```
+
+7. Additionally you can also initialise the cart with 'offer_items'
+
+```
+cart = ShoppingCart.new(offer_items: [fruit_tea])
+```
 
 
 ## User stories
@@ -58,6 +86,8 @@ As a shop keeper, I want to be able to scan more than one item so that I can rec
 
 As a shop keeper, I want to see a total amount so that I can charge the customer correctly.
 
+As a shop keeper, I want to charge for one fruit tea when there are two in the cart, so that I can offer buy-one-get-one-free.
 
+As a shop keeper, I want to add a free fruit tea to the cart when there is an odd number, so that the customer can get buy-one-get-one-free.
 
 

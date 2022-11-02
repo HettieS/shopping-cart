@@ -50,5 +50,33 @@ RSpec.describe ShoppingCart do
         expect(empty_cart.calculate_cost).to eq(empty_cart_message)
       end
     end
+
+    context 'fruit tea offer' do
+      offer_item = ShopItem.new(product_code: "FR1", name: "Fruit tea", price: 3.11)
+      cart_with_offer ||= ShoppingCart.new(offer_items: [offer_item])
+      fruit_tea_one = ShopItem.new(product_code: "FR1", name: "Fruit tea", price: 3.11)
+      fruit_tea_two = ShopItem.new(product_code: "FR1", name: "Fruit tea", price: 3.11)
+      cost = (fruit_tea_one.price).round(2)
+
+      context 'when the cart contains two fruit teas' do
+        it 'one is deducted from the total cost' do
+          cart_with_offer.scan(fruit_tea_one)
+          cart_with_offer.scan(fruit_tea_two)
+
+          expect(cart_with_offer.calculate_cost).to eq(cost)
+        end
+      end
+
+      context 'when there are an odd number of fruit teas' do
+        fruit_tea_three = ShopItem.new(product_code: "FR1", name: "Fruit tea", price: 3.11)
+
+        it 'free tea is added to cart' do
+          cart_with_offer.scan(fruit_tea_three)
+          cart_with_offer.calculate_cost
+
+          expect(cart_with_offer.item_list.count).to eq(4)
+        end
+      end
+    end
   end
 end
